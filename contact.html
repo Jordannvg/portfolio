@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Jordann VICENTE GUIA — BTS SIO SISR</title>
+    <meta name="description" content="Contactez Jordann VICENTE GUIA, étudiant en BTS SIO SISR 2ème année à Orléans. Formulaire de contact, coordonnées directes et CV PDF.">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Contact | Jordann VICENTE GUIA">
+    <meta property="og:description" content="Prenez contact avec Jordann VICENTE GUIA pour une opportunité de stage ou d'alternance.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Contact</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-xs text-slate-500 mb-6 font-mono">
+                <a href="index.html" class="hover:text-slate-300">Accueil</a>
+                <span class="mx-1.5">/</span>
+                <span class="text-slate-300">Contact & Coordonnées</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+                Me Contacter
+            </h1>
+            <p class="text-sm text-slate-400 max-w-3xl mb-10">
+                Vous recherchez un étudiant pour un stage de 2ème année de BTS SIO SISR ou une alternance ? Vous pouvez me joindre directement par e-mail, téléphone ou via le formulaire ci-dessous.
+            </p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-12">
+                
+                <!-- Colonne gauche : Coordonnées directes -->
+                <div class="lg:col-span-5 space-y-4">
+                    
+                    <h2 class="text-base font-bold text-white mb-3">Coordonnées Directes</h2>
+
+                    <!-- Email -->
+                    <div class="pro-card p-4 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-0.5">Adresse E-mail</span>
+                            <a href="mailto:vicenteguiajordann@gmail.com" class="text-xs sm:text-sm font-medium text-white hover:text-blue-400 break-all transition">
+                                vicenteguiajordann@gmail.com
+                            </a>
+                        </div>
+                        <button type="button" class="copy-btn p-2 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white transition" data-copy="vicenteguiajordann@gmail.com" title="Copier l'e-mail">
+                            <i class="fa-regular fa-copy text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Téléphone -->
+                    <div class="pro-card p-4 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs text-slate-400 block mb-0.5">Téléphone</span>
+                            <a href="tel:0640413774" class="text-xs sm:text-sm font-medium text-white hover:text-blue-400 transition font-mono">
+                                06 40 41 37 74
+                            </a>
+                        </div>
+                        <button type="button" class="copy-btn p-2 rounded bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-white transition" data-copy="0640413774" title="Copier le téléphone">
+                            <i class="fa-regular fa-copy text-xs"></i>
+                        </button>
+                    </div>
+
+                    <!-- Localisation -->
+                    <div class="pro-card p-4">
+                        <span class="text-xs text-slate-400 block mb-0.5">Localisation & Mobilité</span>
+                        <div class="text-xs sm:text-sm font-medium text-white mb-1">
+                            45510 Tigy, Loiret (Région Orléanaise)
+                        </div>
+                        <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
+                            <i class="fa-solid fa-car text-[11px]"></i> Titulaire du Permis B (Véhiculé)
+                        </span>
+                    </div>
+
+                    <!-- Téléchargement CV (PDF) -->
+                    <div class="pro-card p-5 bg-slate-900 border-slate-700">
+                        <h3 class="font-semibold text-white text-sm mb-1">Curriculum Vitae (PDF)</h3>
+                        <p class="text-xs text-slate-400 mb-3">Téléchargez la version officielle du CV.</p>
+                        <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="inline-flex items-center gap-2 px-4 py-2 rounded bg-blue-600 hover:bg-blue-500 font-medium text-xs text-white transition">
+                            <i class="fa-solid fa-download"></i>
+                            <span>Télécharger CV (PDF - 188 Ko)</span>
+                        </a>
+                    </div>
+
+                    <!-- Liens réseaux pro -->
+                    <div class="flex items-center gap-3 pt-1">
+                        <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 px-3 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-xs text-slate-300 hover:text-white text-center transition">
+                            LinkedIn
+                        </a>
+                        <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="flex-1 py-2 px-3 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-xs text-slate-300 hover:text-white text-center transition">
+                            GitHub
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Colonne droite : Formulaire de message -->
+                <div class="lg:col-span-7">
+                    <div class="pro-card p-6 sm:p-7">
+                        <h2 class="text-base font-bold text-white mb-1">Envoyer un message</h2>
+                        <p class="text-xs text-slate-400 mb-6">Je prendrai connaissance de votre message et vous répondrai par e-mail.</p>
+
+                        <form id="portfolio-contact-form" class="space-y-4">
+                            
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="name" class="block text-xs text-slate-300 mb-1.5 font-medium">Nom complet *</label>
+                                    <input type="text" id="name" required placeholder="Ex: Jean Dupont" class="w-full bg-[#0a0f19] border border-slate-700 rounded-md px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-xs text-slate-300 mb-1.5 font-medium">Adresse e-mail *</label>
+                                    <input type="email" id="email" required placeholder="Ex: jean.dupont@entreprise.fr" class="w-full bg-[#0a0f19] border border-slate-700 rounded-md px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                    <label for="company" class="block text-xs text-slate-300 mb-1.5 font-medium">Entreprise / Organisation</label>
+                                    <input type="text" id="company" placeholder="Ex: DSI, Société..." class="w-full bg-[#0a0f19] border border-slate-700 rounded-md px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition">
+                                </div>
+                                <div>
+                                    <label for="subject" class="block text-xs text-slate-300 mb-1.5 font-medium">Objet du message *</label>
+                                    <select id="subject" required class="w-full bg-[#0a0f19] border border-slate-700 rounded-md px-3 py-2 text-xs text-white focus:outline-none focus:border-blue-500 transition">
+                                        <option value="Proposition de Stage BTS SIO">Proposition de Stage BTS SIO (2A)</option>
+                                        <option value="Proposition d'Alternance">Proposition d'Alternance (Bac+3)</option>
+                                        <option value="Opportunité d'Emploi">Opportunité Professionnelle</option>
+                                        <option value="Autre échange">Autre échange technique</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="message" class="block text-xs text-slate-300 mb-1.5 font-medium">Message *</label>
+                                <textarea id="message" rows="5" required placeholder="Votre message..." class="w-full bg-[#0a0f19] border border-slate-700 rounded-md p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 transition resize-y"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-2.5 rounded-md font-medium text-xs text-white bg-blue-600 hover:bg-blue-500 transition">
+                                Envoyer le message
+                            </button>
+                        </form>
+
+                        <div id="contact-mailto-fallback" class="hidden mt-4 p-3 rounded bg-slate-900 border border-slate-800 text-center text-xs">
+                            <span class="text-slate-400">Message prêt. </span>
+                            <a href="mailto:vicenteguiajordann@gmail.com" class="text-blue-400 hover:underline">
+                                Ouvrir dans votre client de messagerie
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Liens bas de page -->
+            <div class="flex items-center justify-between text-xs pt-6 border-t border-slate-800 text-slate-400">
+                <a href="veille.html" class="hover:text-white">← Veille Technologique</a>
+                <a href="index.html" class="text-blue-400 hover:underline">Retour à l'accueil →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-slate-400 hover:text-white">Parcours</a>
+                <a href="competences.html" class="text-slate-400 hover:text-white">Compétences</a>
+                <a href="homelab.html" class="text-slate-400 hover:text-white">Homelab</a>
+                <a href="veille.html" class="text-slate-400 hover:text-white">Veille</a>
+                <a href="contact.html" class="text-white font-medium">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

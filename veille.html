@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veille Technologique | Jordann VICENTE GUIA — BTS SIO SISR</title>
+    <meta name="description" content="Veille technologique BTS SIO SISR de Jordann VICENTE GUIA : 3 articles de référence analysant le Zero Trust (ZTNA) face au VPN standard (utilité, avantages et limites).">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Veille Technologique | Jordann VICENTE GUIA">
+    <meta property="og:description" content="Articles de veille BTS SIO SISR : ZTNA vs VPN traditionnel, analyse comparative et sources spécialisées.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <!-- Fil d'Ariane -->
+            <div class="text-xs text-slate-500 mb-6 font-mono">
+                <a href="index.html" class="hover:text-slate-300">Accueil</a>
+                <span class="mx-1.5">/</span>
+                <span class="text-slate-300">Veille Technologique</span>
+            </div>
+
+            <!-- Titre et sous-titre -->
+            <div class="mb-8">
+                <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+                    Veille Technologique (BTS SIO SISR)
+                </h1>
+                <p class="text-sm text-slate-400 max-w-3xl leading-relaxed">
+                    Étude comparative approfondie des architectures d'accès distants : la transition du VPN traditionnel vers le modèle <b>Zero Trust Network Access (ZTNA)</b>. Analyse de son utilité, de ses atouts de sécurité et des contraintes opérationnelles associées.
+                </p>
+            </div>
+
+            <!-- CADRE & MÉTHODOLOGIE DE VEILLE -->
+            <div class="pro-card p-6 sm:p-8 mb-10 border-l-4 border-l-blue-500">
+                <div class="flex items-center gap-2 text-xs font-mono text-blue-400 font-semibold mb-2">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Cadre de veille & Méthodologie BTS SIO</span>
+                </div>
+                <h2 class="text-lg sm:text-xl font-bold text-white mb-3">
+                    Pourquoi remplacer le VPN traditionnel par une architecture Zero Trust ?
+                </h2>
+                <p class="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">
+                    Le VPN d'accès distant classique repose sur un modèle historique de « château fort » : une fois l'authentification initiale franchie, le poste client est injecté dans le sous-réseau interne (couche 3 OSI). Face à la recrudescence des rançongiciels, aux collaborateurs nomades et au multi-cloud, ce principe de confiance implicite engendre des risques majeurs : <b>mouvements latéraux</b> incontrôlés, <b>exposition de ports sur Internet</b> et <b>gestion périlleuse des accès tiers</b>.
+                </p>
+                <div class="text-xs text-slate-400 pt-3 border-t border-slate-800 flex items-center justify-between flex-wrap gap-3">
+                    <div class="flex items-center gap-2">
+                        <i class="fa-solid fa-rss text-orange-400"></i>
+                        <span>Outil de curation : Agrégation quotidienne sur mon instance <b>FreshRSS</b> auto-hébergée (<code>rss.maison.lan</code>).</span>
+                    </div>
+                    <span class="badge-clean">3 Articles de référence analysés</span>
+                </div>
+            </div>
+
+            <!-- SECTION : 3 ARTICLES SUR LE ZERO TRUST / ZTNA VS VPN -->
+            <div class="space-y-8 mb-12">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <div>
+                        <h2 class="text-xl font-bold text-white">3 Articles de Référence : Utilité, Avantages et Inconvénients</h2>
+                        <p class="text-xs text-slate-400 mt-1">Chaque article est issu d'une source spécialisée reconnue et consultable directement dans un nouvel onglet.</p>
+                    </div>
+                    <span class="text-xs font-mono text-slate-500 hidden sm:inline-block">1 Article = 1 Source</span>
+                </div>
+
+                <!-- ==============================================================
+                     ARTICLE 1 : CLOUDFLARE LEARNING CENTER
+                     ============================================================== -->
+                <article class="pro-card p-6 sm:p-8">
+                    <!-- En-tête Article -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="badge-clean text-xs">
+                            <i class="fa-solid fa-cloud text-blue-400 mr-1.5"></i> Source 1 : Cloudflare Learning Center
+                        </span>
+                        <span class="text-xs font-mono text-slate-500">Architecture Réseau & Accès Applicatif</span>
+                    </div>
+
+                    <!-- Titre cliquable vers la source en nouvel onglet -->
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">
+                        <a href="https://www.cloudflare.com/learning/access-management/vpn-vs-ztna/" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors inline-flex items-center gap-2 group">
+                            <span>VPN vs. ZTNA : comprendre les différences clés</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-blue-400 transition-transform group-hover:translate-x-0.5"></i>
+                        </a>
+                    </h3>
+
+                    <div class="text-xs font-mono text-slate-400 mb-5">
+                        <span class="text-slate-500">Source officielle :</span>
+                        <a href="https://www.cloudflare.com/learning/access-management/vpn-vs-ztna/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline break-all">
+                            https://www.cloudflare.com/learning/access-management/vpn-vs-ztna/
+                        </a>
+                    </div>
+
+                    <!-- Résumé de l'article -->
+                    <div class="mb-6 p-4 rounded-lg bg-slate-900/90 border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines text-blue-400"></i> Résumé de l'article :
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Cet article de référence du Cloudflare Learning Center explique pourquoi le modèle VPN traditionnel (couche 3, réseau complet) devient obsolète face aux environnements hybrides et multi-cloud. Le ZTNA (Zero Trust Network Access) applique le principe « never trust, always verify » en n'accordant l'accès qu'à une application spécifique (couche 7) après validation continue de l'identité, de la posture de l'appareil et du contexte. L'article détaille comment le ZTNA supprime le <i>hairpinning</i> (trafic forcé vers le datacenter), réduit la surface d'attaque (aucun port entrant ouvert), et améliore la latence via un accès direct aux applications SaaS et cloud.
+                        </p>
+                    </div>
+
+                    <!-- Grille analytique : Utilité, Avantages, Inconvénients -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        
+                        <!-- Utilité -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 mb-2">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                    <span>UTILITÉ</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Adapter la sécurité à la décentralisation des ressources (SaaS, multi-cloud) et au télétravail massif. Il répond à l'inadéquation des concentrateurs VPN centraux face aux flux Internet directs.
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Accès direct au cloud</span>
+                        </div>
+
+                        <!-- Avantages face au VPN -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-blue-400 mb-2">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>AVANTAGES FACE AU VPN</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Accès applicatif strict (Couche 7)</b> : aucune visibilité sur le reste du réseau local.</li>
+                                    <li>• <b>Zéro port entrant ouvert</b> : tunnels inversés rendant l'IP publique invisible aux scans Shodan.</li>
+                                    <li>• <b>Latence réduite</b> : fin du transit obligatoire par le routeur VPN du siège.</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Principe du moindre privilège</span>
+                        </div>
+
+                        <!-- Inconvénients / Limites -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-amber-400 mb-2">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>INCONVÉNIENTS & DÉFIS</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Cartographie complexe</b> : obligation d'inventorier chaque application individuellement.</li>
+                                    <li>• <b>Protocoles hérités (Legacy)</b> : prise en charge délicate des protocoles réseau non web (broadcasts UDP, voix sur IP propriétaire).</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Migration technique pointue</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Bouton de consultation externe -->
+                    <div class="pt-2 flex items-center justify-end">
+                        <a href="https://www.cloudflare.com/fr-fr/learning/access-management/vpn-vs-ztna/" target="_blank" rel="noopener noreferrer" class="btn-secondary text-xs inline-flex items-center gap-2">
+                            <span>Consulter l'article source (Cloudflare)</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                </article>
+
+
+                <!-- ==============================================================
+                     ARTICLE 2 : ANSSI (CYBER.GOUV.FR)
+                     ============================================================== -->
+                <article class="pro-card p-6 sm:p-8">
+                    <!-- En-tête Article -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="badge-clean text-xs">
+                            <i class="fa-solid fa-building-shield text-blue-400 mr-1.5"></i> Source 2 : ANSSI (cyber.gouv.fr)
+                        </span>
+                        <span class="text-xs font-mono text-slate-500">Doctrine Nationale & Cadre Méthodologique</span>
+                    </div>
+
+                    <!-- Titre cliquable vers la source en nouvel onglet -->
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">
+                        <a href="https://cyber.gouv.fr/publications/le-modele-zero-trust" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors inline-flex items-center gap-2 group">
+                            <span>Le modèle Zero Trust : Principes, opportunités et points d'attention</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-blue-400 transition-transform group-hover:translate-x-0.5"></i>
+                        </a>
+                    </h3>
+
+                    <div class="text-xs font-mono text-slate-400 mb-5">
+                        <span class="text-slate-500">Source officielle :</span>
+                        <a href="https://cyber.gouv.fr/publications/le-modele-zero-trust" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline break-all">
+                            https://cyber.gouv.fr/publications/le-modele-zero-trust
+                        </a>
+                    </div>
+
+                    <!-- Résumé de l'article -->
+                    <div class="mb-6 p-4 rounded-lg bg-slate-900/90 border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines text-blue-400"></i> Résumé de l'article :
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            Ce document de doctrine de l'Agence Nationale de la Sécurité des Systèmes d'Information (ANSSI) formalise la vision étatique du Zero Trust. L'ANSSI rappelle que le Zero Trust <b>n'est pas un produit</b> mais une architecture reposant sur l'hypothèse « Assume Breach » (supposer la compromission). La publication détaille les 7 piliers (identité, appareil, réseau, application, données, visibilité, automatisation) et explique pourquoi le VPN traditionnel (confiance implicite, périmètre réseau) est incompatible avec cette approche. L'agence met en garde sur les risques de recentralisation (IdP unique) et la complexité de gouvernance.
+                        </p>
+                    </div>
+
+                    <!-- Grille analytique : Utilité, Avantages, Inconvénients -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        
+                        <!-- Utilité -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 mb-2">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                    <span>UTILITÉ</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Neutraliser les intrusions dues au vol d'identifiants et endiguer les épidémies de malwares provenant d'équipements nomades non maîtrisés (BYOD ou ordinateurs personnels).
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Endiguement des ransomwares</span>
+                        </div>
+
+                        <!-- Avantages face au VPN -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-blue-400 mb-2">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>AVANTAGES FACE AU VPN</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Confinement latéral total</b> : l'attaquant ne peut pas scanner l'Active Directory ni rebondir sur les partages réseau.</li>
+                                    <li>• <b>Évaluation de posture continue</b> : vérification permanente de l'EDR et du patch-management.</li>
+                                    <li>• <b>Gestion souple des prestataires</b> : ouverture d'une URL spécifique sans donner d'accès LAN.</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Contrôle contextuel dynamique</span>
+                        </div>
+
+                        <!-- Inconvénients / Limites -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-amber-400 mb-2">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>INCONVÉNIENTS & DÉFIS</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Modèle de coût par utilisateur</b> : abonnements SaaS récurrents parfois plus élevés qu'une appliance VPN physique amortie.</li>
+                                    <li>• <b>Déploiement d'agents terminaux</b> : contrainte d'installer un logiciel agent sur chaque machine cliente.</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Coût récurrent & parc d'agents</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Bouton de consultation externe -->
+                    <div class="pt-2 flex items-center justify-end">
+                        <a href="https://cyber.gouv.fr/publications/le-modele-zero-trust" target="_blank" rel="noopener noreferrer" class="btn-secondary text-xs inline-flex items-center gap-2">
+                            <span>Consulter la publication source (ANSSI)</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                </article>
+
+
+                <!-- ==============================================================
+                     ARTICLE 3 : NIST (SP 800-207)
+                     ============================================================== -->
+                <article class="pro-card p-6 sm:p-8">
+                    <!-- En-tête Article -->
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                        <span class="badge-clean text-xs">
+                            <i class="fa-solid fa-book text-blue-400 mr-1.5"></i> Source 3 : NIST (National Institute of Standards and Technology)
+                        </span>
+                        <span class="text-xs font-mono text-slate-500">Référence Internationale & Architecture Zero Trust</span>
+                    </div>
+
+                    <!-- Titre cliquable vers la source en nouvel onglet -->
+                    <h3 class="text-lg sm:text-xl font-bold text-white mb-2">
+                        <a href="https://csrc.nist.gov/publications/detail/sp/800-207/final" target="_blank" rel="noopener noreferrer" class="hover:text-blue-400 transition-colors inline-flex items-center gap-2 group">
+                            <span>Zero Trust Architecture (NIST SP 800-207)</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-xs text-slate-500 group-hover:text-blue-400 transition-transform group-hover:translate-x-0.5"></i>
+                        </a>
+                    </h3>
+
+                    <div class="text-xs font-mono text-slate-400 mb-5">
+                        <span class="text-slate-500">Source officielle :</span>
+                        <a href="https://csrc.nist.gov/publications/detail/sp/800-207/final" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:underline break-all">
+                            https://csrc.nist.gov/publications/detail/sp/800-207/final
+                        </a>
+                    </div>
+
+                    <!-- Résumé de l'article -->
+                    <div class="mb-6 p-4 rounded-lg bg-slate-900/90 border border-slate-800">
+                        <h4 class="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-2 font-mono flex items-center gap-2">
+                            <i class="fa-solid fa-file-lines text-blue-400"></i> Résumé de l'article :
+                        </h4>
+                        <p class="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                            La publication spéciale NIST SP 800-207 définit le standard de référence international pour l'architecture Zero Trust. Elle formalise les 7 principes fondamentaux (vérification continue, moindre privilège, assume breach, micro-segmentation, etc.) et les 3 composants logiques (Policy Engine, Policy Administrator, Policy Enforcement Point). Contrairement au VPN qui accorde un accès réseau large après authentification unique, le ZTNA selon NIST évalue dynamiquement la confiance pour chaque requête via des politiques contextuelles (identité, posture device, localisation, comportement). Le document compare explicitement les modèles périmétriques (VPN) aux architectures Zero Trust et sert de base aux stratégies gouvernementales et entreprises mondiales.
+                        </p>
+                    </div>
+
+                    <!-- Grille analytique : Utilité, Avantages, Inconvénients -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                        
+                        <!-- Utilité -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-emerald-400 mb-2">
+                                    <i class="fa-solid fa-crosshairs"></i>
+                                    <span>UTILITÉ</span>
+                                </div>
+                                <p class="text-xs text-slate-300 leading-relaxed">
+                                    Fournir un cadre méthodologique étatique pour durcir en profondeur les architectures des administrations et entreprises d'importance vitale (OIV) face aux attaques ciblées et aux cybermenaces avancées (APT).
+                                </p>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Doctrine de cyberdéfense</span>
+                        </div>
+
+                        <!-- Avantages face au VPN -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-blue-400 mb-2">
+                                    <i class="fa-solid fa-circle-check"></i>
+                                    <span>AVANTAGES FACE AU VPN</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Rupture avec la confiance implicite</b> : fin de l'axiome affirmant qu'un équipement « sur le LAN » est automatiquement sain.</li>
+                                    <li>• <b>Micro-segmentation dynamique</b> : cloisonnement strict des ressources critiques.</li>
+                                    <li>• <b>Observabilité et traçabilité exhaustives</b> : audit et journalisation de chaque transaction applicative.</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">Hypothèse de compromission</span>
+                        </div>
+
+                        <!-- Inconvénients / Limites -->
+                        <div class="p-4 rounded-md bg-slate-900/60 border border-slate-800 flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-center gap-2 text-xs font-bold text-amber-400 mb-2">
+                                    <i class="fa-solid fa-triangle-exclamation"></i>
+                                    <span>INCONVÉNIENTS & DÉFIS</span>
+                                </div>
+                                <ul class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
+                                    <li>• <b>Sur-dépendance envers l'autorité d'identité (IdP)</b> : l'annuaire d'identité (Azure AD/Entra, Okta, Keycloak) devient le point névralgique à surprotéger.</li>
+                                    <li>• <b>Exigence d'une gouvernance rigoureuse</b> : charge administrative élevée pour maintenir les règles de filtrage à jour sans bloquer l'activité métier.</li>
+                                </ul>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-500 mt-3 pt-2 border-t border-slate-800/80">IdP : nouvelle cible critique</span>
+                        </div>
+
+                    </div>
+
+                    <!-- Bouton de consultation externe -->
+                    <div class="pt-2 flex items-center justify-end">
+                        <a href="https://csrc.nist.gov/publications/detail/sp/800-207/final" target="_blank" rel="noopener noreferrer" class="btn-secondary text-xs inline-flex items-center gap-2">
+                            <span>Consulter la norme source (NIST SP 800-207)</span>
+                            <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
+                        </a>
+                    </div>
+                </article>
+
+            </div>
+
+            <!-- TABLEAU COMPARATIF RÉCAPITULATIF POUR LE JURY BTS SIO -->
+            <div class="pro-card p-6 sm:p-8 mb-12">
+                <div class="flex items-center gap-2 text-xs font-mono text-blue-400 font-semibold mb-2">
+                    <i class="fa-solid fa-table-list"></i>
+                    <span>Synthèse comparative pour l'épreuve de BTS SIO</span>
+                </div>
+                <h3 class="text-base sm:text-lg font-bold text-white mb-4">
+                    Comparatif Technique : VPN Traditionnel (IPsec/SSL) vs Architecture Zero Trust (ZTNA)
+                </h3>
+
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left text-xs border border-slate-800 rounded-md">
+                        <thead class="bg-slate-900/90 text-slate-400 font-mono uppercase tracking-wider border-b border-slate-800">
+                            <tr>
+                                <th class="py-3 px-4">Critère d'évaluation</th>
+                                <th class="py-3 px-4 text-slate-300">VPN Traditionnel</th>
+                                <th class="py-3 px-4 text-blue-400">Zero Trust Network Access (ZTNA)</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-800 text-slate-300">
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Modèle de confiance</td>
+                                <td class="py-3 px-4 text-rose-300">Confiance implicite sur le sous-réseau après login</td>
+                                <td class="py-3 px-4 text-emerald-300">« Ne jamais faire confiance, toujours vérifier »</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Niveau OSI & Périmètre</td>
+                                <td class="py-3 px-4">Couche 3 (Réseau IP entier)</td>
+                                <td class="py-3 px-4 text-blue-300 font-medium">Couche 7 (Application individuelle uniquement)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Mouvements latéraux</td>
+                                <td class="py-3 px-4 text-rose-300">Possibles (le poste peut scanner tout le LAN)</td>
+                                <td class="py-3 px-4 text-emerald-300">Totalement bloqués (confinement étanche)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Ports d'écoute sur Internet</td>
+                                <td class="py-3 px-4">Ports ouverts nécessaires (scannables sur Shodan)</td>
+                                <td class="py-3 px-4 text-emerald-300">Zéro port entrant ouvert (tunnels inversés sortants)</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Contrôle de posture</td>
+                                <td class="py-3 px-4">Statique (uniquement à la connexion initiale)</td>
+                                <td class="py-3 px-4 text-emerald-300">Dynamique et continu tout au long de la session</td>
+                            </tr>
+                            <tr class="hover:bg-slate-900/40">
+                                <td class="py-3 px-4 font-semibold text-white">Complexité & Coût</td>
+                                <td class="py-3 px-4 text-emerald-300">Faible complexité, technologie éprouvée et amortie</td>
+                                <td class="py-3 px-4 text-amber-300">Cartographie fine requise, dépendance à l'IdP, coûts SaaS</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Liens bas de page -->
+            <div class="flex items-center justify-between text-xs pt-6 border-t border-slate-800 text-slate-400">
+                <a href="homelab.html" class="hover:text-white transition-colors">← Homelab maison.lan</a>
+                <a href="contact.html" class="text-blue-400 hover:underline">Prendre contact →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-slate-400 hover:text-white">Parcours</a>
+                <a href="competences.html" class="text-slate-400 hover:text-white">Compétences</a>
+                <a href="homelab.html" class="text-slate-400 hover:text-white">Homelab</a>
+                <a href="veille.html" class="text-white font-medium">Veille</a>
+                <a href="contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

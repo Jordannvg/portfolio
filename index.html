@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jordann VICENTE GUIA | Étudiant BTS SIO SISR — Accueil</title>
+    <meta name="description" content="Portfolio de Jordann VICENTE GUIA, étudiant en BTS SIO SISR 2ème année au Lycée Benjamin Franklin (Orléans). Administration systèmes, réseaux d'entreprise et cybersécurité.">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Jordann VICENTE GUIA | Portfolio BTS SIO SISR">
+    <meta property="og:description" content="Portfolio professionnel - BTS SIO option SISR 2ème année.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- =====================================================================
+         NAVIGATION BAR - SOBRE & RÉPARTIE
+    ====================================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <!-- Logo / Identité -->
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <!-- Liens de navigation répartis équitablement -->
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <!-- Bouton Contact Header -->
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <!-- Hamburger mobile -->
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Tiroir Mobile -->
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+
+            <!-- HERO SECTION ÉPURÉE -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start mb-16">
+                
+                <!-- Colonne gauche : Présentation -->
+                <div class="lg:col-span-7">
+                    
+                    <!-- Statut -->
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded bg-slate-800/80 border border-slate-700/60 text-xs text-slate-300 mb-5">
+                        <span class="status-indicator"></span>
+                        <span>Recherche de Stage (2A) / Alternance 2026-2027</span>
+                    </div>
+
+                    <h1 class="text-3xl sm:text-4xl font-bold text-white tracking-tight mb-3">
+                        Jordann Vicente Guia
+                    </h1>
+
+                    <p class="text-lg font-medium text-blue-400 mb-4">
+                        Étudiant en BTS SIO SISR — 2ème année (Lycée Benjamin Franklin, Orléans)
+                    </p>
+
+                    <p class="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
+                        Passionné par l'administration des systèmes et l'architecture réseau, je prépare le BTS SIO (option Solutions d'Infrastructure, Systèmes et Réseaux). Fort d'un premier stage au sein d'Orléans Métropole (switchs Aruba 802.1x, pare-feu Palo Alto, ClearPass RADIUS, DHCP) et de mon environnement Homelab personnel, je cherche à mettre en pratique mes compétences au sein d'une équipe informatique rigoureuse.
+                    </p>
+
+                    <!-- Infos clés sobres -->
+                    <div class="flex flex-wrap gap-2 text-xs text-slate-300 mb-8">
+                        <span class="badge-clean"><i class="fa-solid fa-location-dot text-slate-400"></i> Tigy (45510)</span>
+                        <span class="badge-clean"><i class="fa-solid fa-car text-slate-400"></i> Permis B</span>
+                        <span class="badge-clean"><i class="fa-solid fa-graduation-cap text-slate-400"></i> Bac Général NSI / Maths</span>
+                        <span class="badge-clean"><i class="fa-solid fa-language text-slate-400"></i> Anglais B2</span>
+                    </div>
+
+                    <!-- Liens d'action -->
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="parcours.html" class="px-4 py-2.5 rounded-md text-xs font-semibold text-white bg-blue-600 hover:bg-blue-500 transition">
+                            Voir mon stage & parcours
+                        </a>
+                        <a href="homelab.html" class="px-4 py-2.5 rounded-md text-xs font-medium text-slate-200 bg-slate-800 hover:bg-slate-750 border border-slate-700 transition">
+                            Découvrir mon Homelab
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Colonne droite : Profil & Shell Linux -->
+                <div class="lg:col-span-5 space-y-4">
+                    
+                    <!-- Carte de profil avec photo réelle et LES 3 BOUTONS REGROUPÉS -->
+                    <div class="pro-card p-5">
+                        <div class="flex items-center gap-4 mb-4">
+                            <img src="assets/img/jordann.png" alt="Jordann Vicente Guia" class="w-16 h-16 rounded-md object-cover border border-slate-700">
+                            <div>
+                                <h2 class="font-semibold text-white text-base">Jordann Vicente Guia</h2>
+                                <p class="text-xs text-slate-400">Administrateur Systèmes & Réseaux Jr</p>
+                                <span class="text-[11px] text-emerald-400 flex items-center gap-1.5 mt-1 font-mono">
+                                    <span class="status-indicator"></span> Profil disponible
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Les 3 boutons côte à côte -->
+                        <div class="flex flex-wrap items-center gap-2 pt-3 border-t border-slate-800 text-xs">
+                            <button class="copy-btn px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-slate-300 hover:text-white transition flex items-center gap-1.5" data-copy="vicenteguiajordann@gmail.com" title="Copier l'email">
+                                <i class="fa-regular fa-copy text-slate-400"></i>
+                                <span>Copier Email</span>
+                            </button>
+
+                            <button class="copy-btn px-2.5 py-1.5 rounded bg-slate-800 hover:bg-slate-750 border border-slate-700 text-slate-300 hover:text-white transition flex items-center gap-1.5" data-copy="0640413774" title="Copier le numéro">
+                                <i class="fa-solid fa-phone text-slate-400"></i>
+                                <span>Copier Téléphone</span>
+                            </button>
+
+                            <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="px-2.5 py-1.5 rounded bg-blue-600 hover:bg-blue-500 font-medium text-white transition flex items-center gap-1.5" title="Télécharger le document PDF">
+                                <i class="fa-solid fa-download"></i>
+                                <span>Télécharger CV</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Shell Linux Sobre (Console interactive) -->
+                    <div class="terminal-window">
+                        <div class="terminal-header">
+                            <span class="text-xs font-mono text-slate-400">jordann@maison:~</span>
+                            <span class="text-[11px] font-mono text-slate-500">bash</span>
+                        </div>
+                        <div id="terminal-output" class="terminal-body font-mono text-xs">
+                            <p class="text-slate-400">Environnement local Debian 12 (maison.lan).</p>
+                            <p class="text-slate-500">Tapez <span class="text-blue-400">help</span> pour afficher les commandes ou cliquez ci-dessous :</p>
+                        </div>
+                        <div class="p-2 bg-[#090d14] border-t border-slate-800 flex items-center gap-2 font-mono text-xs">
+                            <span class="text-slate-500">jvg:~$</span>
+                            <input type="text" id="terminal-input" placeholder="whoami, homelab, stage, skills..." class="flex-1 bg-transparent text-white focus:outline-none placeholder-slate-600 text-xs" autocomplete="off" spellcheck="false">
+                            <span class="terminal-cursor"></span>
+                        </div>
+                        <div class="px-2 py-1.5 bg-[#090d14] border-t border-slate-800/60 flex items-center gap-1.5 flex-wrap text-[11px] font-mono text-slate-400">
+                            <span class="text-slate-500">Accès rapide:</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="whoami">whoami</button>
+                            <span class="text-slate-700">|</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="homelab">homelab</button>
+                            <span class="text-slate-700">|</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="stage">stage</button>
+                            <span class="text-slate-700">|</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="skills">skills</button>
+                            <span class="text-slate-700">|</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="veille">veille</button>
+                            <span class="text-slate-700">|</span>
+                            <button type="button" class="quick-cmd-btn hover:text-blue-400" data-cmd="ping">ping</button>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- PRÉSENTATION & PARCOURS (Section À Propos) -->
+            <div class="border-t border-slate-800 pt-12 mb-16">
+                <h2 class="text-xl font-bold text-white mb-6">À propos de ma formation</h2>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    
+                    <div class="pro-card p-5">
+                        <div class="text-blue-400 text-base mb-2 font-semibold">BTS SIO — Option SISR</div>
+                        <p class="text-xs text-slate-400 mb-2 font-mono">Lycée Benjamin Franklin (Orléans)</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Deuxième année de formation axée sur les Solutions d'Infrastructure, Systèmes et Réseaux : administration Windows/Linux, virtualisation, routage/commutation et cybersécurité.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-blue-400 text-base mb-2 font-semibold">Baccalauréat Général (2025)</div>
+                        <p class="text-xs text-slate-400 mb-2 font-mono">Lycée Voltaire (Orléans)</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Spécialités Numérique et Sciences Informatiques (NSI) et Mathématiques. Apprentissage de l'algorithmique, de la programmation Python, du modèle relationnel SQL et des bases du modèle réseau TCP/IP.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-blue-400 text-base mb-2 font-semibold">Centres d'intérêt</div>
+                        <p class="text-xs text-slate-400 mb-2 font-mono">Pratique personnelle & Loisirs</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Administration d'un Homelab dédié sous Proxmox et Docker, veille sur les failles de cybersécurité, jeux vidéo de stratégie et jeux de société.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- CARTES D'ACCÈS AUX SECTIONS DÉDIÉES -->
+            <div class="border-t border-slate-800 pt-12">
+                <h2 class="text-xl font-bold text-white mb-6">Sections détaillées du portfolio</h2>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <a href="parcours.html" class="pro-card p-5 block group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-white text-sm group-hover:text-blue-400 transition">Parcours & Stage</span>
+                            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-transform"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Missions à la Mairie d'Olivet / Métropole : switchs Aruba (802.1x), pare-feu Palo Alto, ClearPass et copieurs DHCP.
+                        </p>
+                    </a>
+
+                    <a href="competences.html" class="pro-card p-5 block group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-white text-sm group-hover:text-blue-400 transition">Compétences</span>
+                            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-transform"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Compétences acquises en formation (réseaux, systèmes, sécurité, développement), distinctes des missions de mon stage de 1ère année.
+                        </p>
+                    </a>
+
+                    <a href="homelab.html" class="pro-card p-5 block group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-white text-sm group-hover:text-blue-400 transition">Homelab maison.lan</span>
+                            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-transform"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Proxmox VE, VM Debian, conteneurs Docker (NPM, Vaultwarden, Technitium...) et Nextcloud bare metal.
+                        </p>
+                    </a>
+
+                    <a href="veille.html" class="pro-card p-5 block group">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="font-semibold text-white text-sm group-hover:text-blue-400 transition">Veille Techno</span>
+                            <i class="fa-solid fa-arrow-right text-xs text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-transform"></i>
+                        </div>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            Analyse comparative du Zero Trust (ZTNA) face au VPN : 3 articles de référence (Cloudflare, ANSSI, NIST).
+                        </p>
+                    </a>
+
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SOBRE -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-slate-400 hover:text-white">Parcours</a>
+                <a href="competences.html" class="text-slate-400 hover:text-white">Compétences</a>
+                <a href="homelab.html" class="text-slate-400 hover:text-white">Homelab</a>
+                <a href="veille.html" class="text-slate-400 hover:text-white">Veille</a>
+                <a href="contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

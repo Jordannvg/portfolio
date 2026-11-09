@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compétences Techniques | Jordann VICENTE GUIA — BTS SIO SISR</title>
+    <meta name="description" content="Compétences acquises en formation (Bac NSI, BTS SIO SISR) et expérience du stage de 1ère année à la Mairie d'Olivet / Orléans Métropole : réseaux, systèmes, sécurité, développement.">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Compétences Techniques | Jordann VICENTE GUIA">
+    <meta property="og:description" content="Compétences acquises en formation et missions du stage de 1ère année, en administration système, réseaux et sécurité.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-xs text-slate-500 mb-6 font-mono">
+                <a href="index.html" class="hover:text-slate-300">Accueil</a>
+                <span class="mx-1.5">/</span>
+                <span class="text-slate-300">Compétences Techniques</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+                Compétences Techniques
+            </h1>
+            <p class="text-sm text-slate-400 max-w-3xl mb-6">
+                Cette page sépare deux notions : les <strong class="text-slate-200">compétences</strong> acquises pendant ma formation (Bac général, puis BTS SIO SISR) et l'<strong class="text-slate-200">expérience professionnelle</strong> vécue lors de mon stage de première année, qui correspond à des missions réalisées en entreprise et non à des compétences en soi.
+            </p>
+
+            <div class="flex items-center gap-2 mb-10 flex-wrap text-xs">
+                <a href="#formation" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                    <i class="fa-solid fa-graduation-cap text-blue-400"></i> 1. Compétences acquises en formation
+                </a>
+                <a href="#experience" class="inline-flex items-center gap-2 px-3.5 py-2 rounded-md bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 transition">
+                    <i class="fa-solid fa-briefcase text-emerald-400"></i> 2. Expérience : stage de 1ère année
+                </a>
+            </div>
+
+            <!-- ============ PARTIE 1 : COMPÉTENCES ACQUISES EN FORMATION ============ -->
+            <section id="formation" class="scroll-mt-24 mb-16">
+                <div class="mb-5">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-graduation-cap text-blue-400 text-base"></i>
+                        1. Compétences acquises en formation
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1.5 max-w-3xl">
+                        Issues du Bac général (spécialités NSI et Mathématiques, Lycée Voltaire, 2025) et du BTS SIO option SISR (Lycée Benjamin Franklin, Orléans : 1ère année puis 2ème année depuis septembre 2026). Elles correspondent aux compétences listées sur mon CV. Chaque carte indique le cadre dans lequel la compétence a été acquise.
+                    </p>
+                </div>
+
+                <!-- Onglets de filtrage par catégorie -->
+                <div class="flex items-center gap-2 mb-6 flex-wrap">
+                    <button type="button" class="skill-tab-btn px-4 py-2 rounded-md text-xs font-medium bg-blue-600 text-white border border-blue-500 transition" data-target="panel-reseau">
+                        Réseaux &amp; Commutation
+                    </button>
+                    <button type="button" class="skill-tab-btn px-4 py-2 rounded-md text-xs font-medium bg-slate-800 text-slate-400 hover:text-white border border-transparent transition" data-target="panel-systeme">
+                        Administration Système
+                    </button>
+                    <button type="button" class="skill-tab-btn px-4 py-2 rounded-md text-xs font-medium bg-slate-800 text-slate-400 hover:text-white border border-transparent transition" data-target="panel-securite">
+                        Sécurité &amp; Filtrage
+                    </button>
+                    <button type="button" class="skill-tab-btn px-4 py-2 rounded-md text-xs font-medium bg-slate-800 text-slate-400 hover:text-white border border-transparent transition" data-target="panel-dev">
+                        Développement &amp; Web
+                    </button>
+                </div>
+
+                <div>
+                <div id="panel-reseau" class="skill-panel grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">IPv4, IPv6</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Adressage IPv4 et IPv6, calcul et découpage en sous-réseaux, passerelles par défaut et notions de routage.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                            <span class="badge-clean badge-blue text-[11px]">Bases TCP/IP : Bac NSI</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">VLAN, inter-VLAN et Spanning Tree</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Segmentation des flux par VLAN, routage inter-VLAN et protocole Spanning Tree (STP) pour éviter les boucles de commutation.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Cisco</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Configuration de commutateurs et routeurs Cisco en ligne de commande, dans le cadre des enseignements de routage et de commutation du BTS.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Wireshark</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Capture et analyse de trames réseau pour diagnostiquer une connexion défaillante et repérer un trafic anormal.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div id="panel-systeme" class="skill-panel hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Windows, Linux</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Environnements Windows (dont Windows Server : Active Directory, GPO) et GNU/Linux (Debian, ligne de commande), étudiés en BTS et pratiqués au quotidien sur mon Homelab.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-server"></i> Homelab</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Administration poste client</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Installation et configuration de postes de travail, paramétrage de périphériques, mises à jour logicielles et résolution d'incidents côté utilisateur.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Partage des ressources, FAT et NTFS</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Systèmes de fichiers FAT et NTFS, création et partage de répertoires réseau, attribution des permissions d'accès.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Gestion de sauvegardes</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Principes de sauvegarde, vérification de l'intégrité des archives et procédures de restauration de fichiers.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Virtualisation et conteneurs</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Notions de virtualisation vues en BTS, mises en pratique sur mon Homelab : hyperviseur Proxmox VE, VM Debian et conteneurs Docker.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-server"></i> Homelab</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-3">→ <a href="homelab.html" class="text-blue-400 hover:underline">Voir l'architecture du Homelab</a></p>
+                    </div>
+
+                </div>
+
+                <div id="panel-securite" class="skill-panel hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Pare-feu et filtrage</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Principes du filtrage des flux : analyse du trafic et définition de règles d'autorisation et de blocage pour contrôler les connexions entrantes et sortantes.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-3">→ Mise en pratique sur Palo Alto lors du stage : <a href="#mission-2" class="text-blue-400 hover:underline">mission 2</a></p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Protéger l'identité numérique d'une organisation</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Sécurisation des accès et des identifiants, règles d'hygiène informatique et prévention de l'usurpation d'identité.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                        <p class="text-[11px] text-slate-500 mt-3">→ Lien avec le contrôle d'accès RADIUS du stage : <a href="#mission-3" class="text-blue-400 hover:underline">mission 3</a></p>
+                    </div>
+
+                </div>
+
+                <div id="panel-dev" class="skill-panel hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Python</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Algorithmie et programmation en Python, abordées avec la spécialité NSI du Bac général.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> Bac NSI</span>
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> BTS SIO SISR</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">PHP</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Langage web côté serveur. Contexte rencontré sur mon Homelab : Nextcloud exécuté avec PHP-FPM.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> Formation</span>
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-server"></i> Homelab</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">Java</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Bases de la programmation orientée objet : classes, méthodes et structures de contrôle.
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> Formation</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">JavaScript</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Scripting côté client pour rendre les interfaces web dynamiques (utilisé notamment dans ce portfolio).
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> Formation</span>
+                        </div>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-white font-semibold text-sm mb-2">HTML & CSS</div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Structuration sémantique des pages web (HTML) et mise en forme responsive (CSS).
+                        </p>
+                        <div class="flex flex-wrap gap-1.5">
+                            <span class="badge-clean badge-blue text-[11px]"><i class="fa-solid fa-graduation-cap"></i> Formation</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                </div>
+            </section>
+
+            <!-- ============ PARTIE 2 : EXPÉRIENCE PROFESSIONNELLE ============ -->
+            <section id="experience" class="scroll-mt-24 mb-14 border-t border-slate-800 pt-10">
+                <div class="mb-5">
+                    <h2 class="text-lg font-bold text-white flex items-center gap-2.5">
+                        <i class="fa-solid fa-briefcase text-emerald-400 text-base"></i>
+                        2. Expérience professionnelle : stage de 1ère année
+                    </h2>
+                    <p class="text-xs text-slate-400 mt-1.5 max-w-3xl">
+                        Missions réalisées en milieu professionnel. Il s'agit d'une expérience et non de compétences : chaque mission met en œuvre des compétences acquises en formation (partie 1).
+                    </p>
+                </div>
+
+                <div class="pro-card p-5 mb-5 flex flex-wrap items-center justify-between gap-3">
+                    <div>
+                        <div class="text-white font-semibold text-sm">Stage de 1ère année BTS SIO SISR (7 semaines)</div>
+                        <div class="text-xs text-slate-400 mt-0.5">Mairie d'Olivet — Orléans Métropole · Pôle infrastructure</div>
+                    </div>
+                    <span class="badge-clean badge-green text-[11px]"><i class="fa-regular fa-calendar"></i> 18 mai 2026 au 3 juillet 2026</span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-5">
+                    <div id="mission-1" class="pro-card p-5 scroll-mt-24">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span class="flex-shrink-0 w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-emerald-400 text-xs">1</span>
+                            <div class="text-white font-semibold text-sm leading-snug pt-1">Configuration de switchs Aruba &amp; 802.1x</div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            Configuration de commutateurs Aruba avec activation de l'authentification 802.1x sur les ports physiques, pour diverses communes de la Métropole : contrôle des raccordements filaires et affectation des équipements dans les VLANs appropriés.
+                        </p>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Technologies utilisées</div>
+                        <div class="flex flex-wrap gap-1.5 mb-3"><span class="badge-clean badge-green text-[11px]">Aruba</span> <span class="badge-clean badge-green text-[11px]">802.1x</span></div>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Compétences de formation mobilisées</div>
+                        <div class="flex flex-wrap gap-1.5"><span class="badge-clean text-[11px]">VLAN, inter-VLAN</span> <span class="badge-clean text-[11px]">Routage et commutation</span></div>
+                    </div>
+
+                    <div id="mission-2" class="pro-card p-5 scroll-mt-24">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span class="flex-shrink-0 w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-emerald-400 text-xs">2</span>
+                            <div class="text-white font-semibold text-sm leading-snug pt-1">Analyse du trafic &amp; pare-feu Palo Alto</div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            Analyse du trafic internet et mise en place de règles de filtrage sur le pare-feu Palo Alto : surveillance des flux sortants et durcissement des stratégies de sécurité périmétrique.
+                        </p>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Technologies utilisées</div>
+                        <div class="flex flex-wrap gap-1.5 mb-3"><span class="badge-clean badge-green text-[11px]">Palo Alto</span></div>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Compétences de formation mobilisées</div>
+                        <div class="flex flex-wrap gap-1.5"><span class="badge-clean text-[11px]">Pare-feu et filtrage</span></div>
+                    </div>
+
+                    <div id="mission-3" class="pro-card p-5 scroll-mt-24">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span class="flex-shrink-0 w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-emerald-400 text-xs">3</span>
+                            <div class="text-white font-semibold text-sm leading-snug pt-1">Règles strictes sur serveur RADIUS (ClearPass)</div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            Ajout de règles strictes sur le serveur RADIUS (Aruba ClearPass) pour fiabiliser le contrôle d'accès réseau : validation des profils d'accès des terminaux et refus des postes non reconnus.
+                        </p>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Technologies utilisées</div>
+                        <div class="flex flex-wrap gap-1.5 mb-3"><span class="badge-clean badge-green text-[11px]">RADIUS</span> <span class="badge-clean badge-green text-[11px]">Aruba ClearPass</span></div>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Compétences de formation mobilisées</div>
+                        <div class="flex flex-wrap gap-1.5"><span class="badge-clean text-[11px]">Identité numérique</span> <span class="badge-clean text-[11px]">Gestion des accès</span></div>
+                    </div>
+
+                    <div id="mission-4" class="pro-card p-5 scroll-mt-24">
+                        <div class="flex items-start gap-3 mb-3">
+                            <span class="flex-shrink-0 w-7 h-7 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-emerald-400 text-xs">4</span>
+                            <div class="text-white font-semibold text-sm leading-snug pt-1">Mise en conformité des copieurs (DHCP)</div>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-4">
+                            Paramétrage de copieurs pour les mettre en conformité sur le réseau (passage en DHCP) : suppression des adresses IP statiques non inventoriées au profit d'un adressage centralisé avec baux réservés par adresses MAC.
+                        </p>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Technologies utilisées</div>
+                        <div class="flex flex-wrap gap-1.5 mb-3"><span class="badge-clean badge-green text-[11px]">DHCP</span></div>
+                        <div class="text-[11px] uppercase tracking-wide text-slate-500 mb-1.5">Compétences de formation mobilisées</div>
+                        <div class="flex flex-wrap gap-1.5"><span class="badge-clean text-[11px]">IPv4, IPv6</span></div>
+                    </div>
+
+                </div>
+
+                <div class="text-xs text-slate-400 bg-slate-950/60 p-4 rounded-md border border-slate-800 flex items-center justify-between flex-wrap gap-3">
+                    <span>Ces missions ont permis de mettre en pratique les compétences du référentiel BTS SIO SISR : gestion des accès, administration réseau et résolution d'incidents.</span>
+                    <a href="parcours.html" class="text-blue-400 hover:underline font-medium">Voir le détail du stage →</a>
+                </div>
+            </section>
+
+            <!-- Liens bas de page -->
+            <div class="flex items-center justify-between text-xs pt-6 border-t border-slate-800 text-slate-400">
+                <a href="parcours.html" class="hover:text-white">← Parcours & Stage</a>
+                <a href="homelab.html" class="text-blue-400 hover:underline">Découvrir mon Homelab →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-slate-400 hover:text-white">Parcours</a>
+                <a href="competences.html" class="text-white font-medium">Compétences</a>
+                <a href="homelab.html" class="text-slate-400 hover:text-white">Homelab</a>
+                <a href="veille.html" class="text-slate-400 hover:text-white">Veille</a>
+                <a href="contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

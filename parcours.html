@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parcours & Stage | Jordann VICENTE GUIA — BTS SIO SISR</title>
+    <meta name="description" content="Parcours professionnel et formations de Jordann VICENTE GUIA : Stage en collectivité (Mairie d'Olivet / Orléans Métropole) et BTS SIO SISR.">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Parcours & Stage | Jordann VICENTE GUIA">
+    <meta property="og:description" content="Expérience technique à Orléans Métropole et parcours académique.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- =====================================================================
+         NAVIGATION BAR
+    ====================================================================== -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <!-- Fil d'ariane -->
+            <div class="text-xs text-slate-500 mb-6 font-mono">
+                <a href="index.html" class="hover:text-slate-300">Accueil</a>
+                <span class="mx-1.5">/</span>
+                <span class="text-slate-300">Parcours & Stage</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+                Parcours & Expériences Professionnelles
+            </h1>
+            <p class="text-sm text-slate-400 max-w-3xl mb-12">
+                Présentation détaillée de mon stage de première année de BTS SIO SISR au sein de la Mairie d'Olivet / Orléans Métropole, ainsi que de ma trajectoire scolaire.
+            </p>
+
+            <!-- FOCUS STAGE COLLECTIVITÉ -->
+            <div class="pro-card p-6 sm:p-8 mb-12">
+                
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-800 mb-6">
+                    <div>
+                        <div class="text-xs font-mono text-blue-400 font-semibold mb-1">Stage de 1ère année BTS SIO SISR (7 semaines)</div>
+                        <h2 class="text-xl font-bold text-white">Mairie d'Olivet — Orléans Métropole</h2>
+                        <span class="text-xs text-slate-400">Période : 18 mai 2026 au 3 juillet 2026</span>
+                    </div>
+                    <div class="text-xs font-mono text-slate-400 bg-slate-800 px-3 py-1.5 rounded self-start sm:self-auto border border-slate-700">
+                        Infrastructures Réseau & Sécurité
+                    </div>
+                </div>
+
+                <p class="text-sm text-slate-300 leading-relaxed mb-6">
+                    Durant ce stage conventionné au sein du pôle infrastructure de la collectivité, j'ai pris part à des opérations de sécurisation physique et logique du réseau municipal et intercommunal. Les missions ont porté sur quatre volets techniques majeurs :
+                </p>
+
+                <!-- 4 Missions techniques du CV -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6">
+                    
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-blue-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-network-wired text-xs"></i>
+                            <span>1. Configuration de switchs Aruba & 802.1x</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Configuration de commutateurs Aruba avec activation de l'authentification <b>802.1x</b> au niveau des ports physiques pour diverses communes de la Métropole. L'objectif était de contrôler les raccordements filaires et d'affecter les équipements dans les VLANs appropriés de façon dynamique.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-blue-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-shield-halved text-xs"></i>
+                            <span>2. Analyse du trafic & Pare-feu Palo Alto</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Analyse du trafic internet et mise en place de règles de filtrage sur le <b>pare-feu Palo Alto</b>. Surveillance des flux sortants, identification des applications via App-ID et durcissement des stratégies de sécurité périmétrique.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-blue-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-server text-xs"></i>
+                            <span>3. Règles strictes sur serveur RADIUS (ClearPass)</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Ajout de règles strictes sur le serveur <b>RADIUS (Aruba ClearPass)</b> pour fiabiliser le contrôle d'accès réseau. Validation des profils d'accès des terminaux informatiques et refus systématique des postes non reconnus.
+                        </p>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-blue-400 text-sm font-semibold mb-1 flex items-center gap-2">
+                            <i class="fa-solid fa-print text-xs"></i>
+                            <span>4. Mise en conformité des copieurs (DHCP)</span>
+                        </div>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Paramétrage de copieurs pour les mettre en conformité sur le réseau (<b>passage en DHCP</b>). Suppression des adresses IP statiques non inventoriées au profit d'un adressage centralisé avec baux réservés par adresses MAC.
+                        </p>
+                    </div>
+
+                </div>
+
+                <div class="text-xs text-slate-400 bg-slate-950/60 p-4 rounded-md border border-slate-800 flex items-center justify-between flex-wrap gap-3">
+                    <span>Validation des compétences du référentiel BTS SIO SISR : Gestion des accès, administration réseau et résolution d'incidents.</span>
+                    <a href="competences.html" class="text-blue-400 hover:underline font-medium">Voir compétences de formation et missions →</a>
+                </div>
+
+            </div>
+
+            <!-- FORMATION ET HISTORIQUE -->
+            <div class="border-t border-slate-800 pt-10 mb-12">
+                <h2 class="text-xl font-bold text-white mb-6">Formation & Cursus académique</h2>
+
+                <div class="space-y-6">
+                    
+                    <div class="pro-card p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                            <h3 class="font-semibold text-white text-base">BTS SIO (Option SISR) — 2ème année</h3>
+                            <span class="text-xs font-mono text-slate-400">Depuis Septembre 2026 — En cours</span>
+                        </div>
+                        <p class="text-xs text-blue-400 mb-2">Lycée Benjamin Franklin — Orléans</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Solutions d'Infrastructure, Systèmes et Réseaux : administration Windows Server (Active Directory, GPO) et GNU/Linux, routage et commutation Cisco/Aruba, sécurité des accès, virtualisation et veille technologique.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                            <h3 class="font-semibold text-white text-base">Baccalauréat Général</h3>
+                            <span class="text-xs font-mono text-slate-400">Obtenu en 2025</span>
+                        </div>
+                        <p class="text-xs text-blue-400 mb-2">Lycée Voltaire — Orléans</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Spécialités : <b>Numérique et Sciences Informatiques (NSI)</b> & <b>Mathématiques</b>. Apprentissage de l'algorithmie, de la programmation en Python, du modèle relationnel SQL et des bases du modèle réseau TCP/IP.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 mb-2">
+                            <h3 class="font-semibold text-white text-base">Stage d'observation en entreprise</h3>
+                            <span class="text-xs font-mono text-slate-400">Février 2022</span>
+                        </div>
+                        <p class="text-xs text-slate-400 mb-2">Garage Renault Tigy</p>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Observation d'un changement de pneus, de la vérification de la pression des pneus, du changement d'un pare-brise, du redressement de carrosseries et de l'application d'une nouvelle peinture. Première immersion dans un cadre professionnel technique.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Liens bas de page -->
+            <div class="flex items-center justify-between text-xs pt-6 border-t border-slate-800 text-slate-400">
+                <a href="index.html" class="hover:text-white">← Retour à l'accueil</a>
+                <a href="competences.html" class="text-blue-400 hover:underline">Consulter mes compétences →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-white font-medium">Parcours</a>
+                <a href="competences.html" class="text-slate-400 hover:text-white">Compétences</a>
+                <a href="homelab.html" class="text-slate-400 hover:text-white">Homelab</a>
+                <a href="veille.html" class="text-slate-400 hover:text-white">Veille</a>
+                <a href="contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

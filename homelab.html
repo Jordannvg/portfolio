@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homelab maison.lan | Jordann VICENTE GUIA — Proxmox & Docker</title>
+    <meta name="description" content="Architecture Homelab de Jordann VICENTE GUIA : Proxmox VE, VM Debian, Docker (NPM, Technitium, Vaultwarden, Postgresql, FreshRSS, Jellyfin, Navidrome) et Nextcloud bare metal.">
+    <meta name="author" content="Jordann VICENTE GUIA">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Homelab maison.lan | Jordann VICENTE GUIA">
+    <meta property="og:description" content="Architecture et services de mon serveur personnel auto-hébergé sous Proxmox et Docker.">
+    <meta property="og:type" content="website">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='16' fill='%23111827'/><text x='50%' y='58%' dominant-baseline='middle' text-anchor='middle' font-family='sans-serif' font-weight='bold' font-size='38' fill='%233b82f6'>JV</text></svg>">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        dark: {
+                            950: '#070a12',
+                            900: '#0b0f19',
+                            850: '#111827',
+                            800: '#151f33',
+                            700: '#1f2d47',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome 6 Icons CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="bg-[#0b0f19] text-slate-200 antialiased selection:bg-blue-600/30 selection:text-white">
+
+    <!-- Notification Toast -->
+    <div id="toast" role="status" aria-live="polite" class="flex items-center gap-3 bg-slate-900 border border-slate-700 text-white px-5 py-3 rounded-lg shadow-xl">
+        <i class="fa-solid fa-check text-emerald-400"></i>
+        <span id="toast-msg" class="text-xs font-medium">Notification</span>
+    </div>
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#0b0f19]/95 backdrop-blur border-b border-slate-800">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
+            
+            <a href="index.html" class="flex items-center gap-2.5 flex-shrink-0">
+                <span class="w-8 h-8 rounded bg-slate-800 border border-slate-700 flex items-center justify-center font-mono font-bold text-blue-400 text-xs">
+                    JV
+                </span>
+                <span class="font-semibold text-white text-sm">Jordann Vicente Guia</span>
+            </a>
+
+            <nav class="hidden md:flex flex-1 items-center justify-evenly max-w-2xl mx-4">
+                <a href="index.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Accueil</a>
+                <a href="parcours.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Parcours & Stage</a>
+                <a href="competences.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Compétences</a>
+                <a href="homelab.html" class="desktop-nav-link text-xs lg:text-sm text-white font-semibold border-b-2 border-blue-500 pb-1 transition-colors px-2">Homelab</a>
+                <a href="veille.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Veille Techno</a>
+                <a href="contact.html" class="desktop-nav-link text-xs lg:text-sm text-slate-400 hover:text-white transition-colors px-2 py-1">Contact</a>
+            </nav>
+
+            <div class="hidden sm:flex items-center gap-3 flex-shrink-0">
+                <a href="contact.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-md text-xs font-medium text-white bg-blue-600 hover:bg-blue-500 transition">
+                    <span>Me contacter</span>
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="mobile-menu-btn" type="button" aria-label="Menu" class="p-2 text-slate-400 hover:text-white">
+                    <i class="fa-solid fa-bars text-lg"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-[#0e1422] border-b border-slate-800 px-4 py-4">
+            <nav class="flex flex-col gap-2">
+                <a href="index.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Accueil</a>
+                <a href="parcours.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Parcours & Stage</a>
+                <a href="competences.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Compétences</a>
+                <a href="homelab.html" class="mobile-nav-link text-sm font-semibold text-white bg-slate-800 py-2 px-3 rounded-md">Homelab</a>
+                <a href="veille.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Veille Techno</a>
+                <a href="contact.html" class="mobile-nav-link text-sm text-slate-300 hover:text-white py-2 px-3 rounded-md">Contact</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="pt-28 pb-16">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6">
+            
+            <div class="text-xs text-slate-500 mb-6 font-mono">
+                <a href="index.html" class="hover:text-slate-300">Accueil</a>
+                <span class="mx-1.5">/</span>
+                <span class="text-slate-300">Homelab maison.lan</span>
+            </div>
+
+            <h1 class="text-2xl sm:text-3xl font-bold text-white tracking-tight mb-2">
+                Mon Infrastructure Homelab
+            </h1>
+            <p class="text-sm text-slate-400 max-w-3xl mb-8">
+                Environnement personnel physique et virtualisé sous Proxmox VE, hébergeant une VM Debian, des conteneurs Docker et des services bare metal sous le domaine local <code class="text-slate-300 font-mono">maison.lan</code>.
+            </p>
+
+            <!-- ARCHITECTURE EN 3 COUCHES -->
+            <div class="pro-card p-6 sm:p-8 mb-10">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-slate-800 mb-6">
+                    <div>
+                        <div class="text-xs font-mono text-blue-400 font-semibold mb-1">Architecture Serveur</div>
+                        <h2 class="text-lg font-bold text-white">Découpage Hôte, VM & Services</h2>
+                    </div>
+                    <span class="text-xs font-mono text-emerald-400 bg-slate-800 px-3 py-1.5 rounded border border-slate-700 flex items-center gap-1.5 self-start sm:self-auto">
+                        <span class="status-indicator"></span> Actif en local (24/7)
+                    </span>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-xs font-mono text-slate-400 mb-1">Couche 1 • Hôte Physique</div>
+                        <h3 class="font-semibold text-white text-base mb-2">Proxmox VE</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Hyperviseur bare metal de type 1. Gestion des ressources matérielles (CPU, mémoire vive, stockage ZFS/ext4) et des interfaces de pont virtuel réseau (vmbr0).
+                        </p>
+                        <span class="badge-clean text-[11px]">Hôte KVM</span>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-xs font-mono text-slate-400 mb-1">Couche 2 • Machine Virtuelle</div>
+                        <h3 class="font-semibold text-white text-base mb-2">VM Debian 12</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Système d'exploitation Linux socle. Héberge le démon Docker pour les microservices et fait tourner Nextcloud en direct sur le système.
+                        </p>
+                        <span class="badge-clean text-[11px]">Debian GNU/Linux</span>
+                    </div>
+
+                    <div class="bg-slate-900/90 p-5 rounded-lg border border-slate-800">
+                        <div class="text-xs font-mono text-slate-400 mb-1">Couche 3 • Bare Metal</div>
+                        <h3 class="font-semibold text-white text-base mb-2">Nextcloud</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                            Installé en natif sur la VM Debian. Optimisé avec <b>PHP-FPM</b> pour l'exécution rapide des scripts et un cache mémoire <b>Redis</b> pour le verrouillage des transactions.
+                        </p>
+                        <span class="badge-blue text-[11px]">cloud.maison.lan</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- SERVICES DOCKER DÉPLOYÉS -->
+            <div class="mb-12">
+                <h2 class="text-xl font-bold text-white mb-2">Services Conteneurisés Docker</h2>
+                <p class="text-xs text-slate-400 mb-6">Conteneurs actifs orchestrés sur la machine virtuelle Debian :</p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                    
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Contrôle</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Dockhand</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Interface de supervision pour surveiller l'état, l'utilisation mémoire et les logs des conteneurs en cours d'exécution.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Sécurité</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Vaultwarden</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Gestionnaire de mots de passe auto-hébergé avec chiffrement de bout en bout et synchronisation multi-appareils.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">vault.maison.lan</span>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Base de données</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Postgresql</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed">
+                            Base de données relationnelle assurant la persistance des données pour les applications de l'infrastructure.
+                        </p>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Réseau & SSL</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Nginx Proxy Manager</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Reverse proxy qui redirige les requêtes des sous-domaines vers les conteneurs appropriés avec terminaison SSL/TLS.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">npm.maison.lan</span>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Résolution DNS</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Technitium DNS</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Serveur DNS récursif et autoritaire pour la zone locale <b>maison.lan</b> avec filtrage des traceurs publicitaires.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">dns.maison.lan</span>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Médias</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Jellyfin</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Serveur de streaming multimédia personnel sans télémétrie ni dépendance cloud externe.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">media.maison.lan</span>
+                    </div>
+
+                    <div class="pro-card p-5">
+                        <div class="text-xs font-mono text-blue-400 mb-1">Audio</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">Navidrome</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Serveur de streaming musical personnel, léger et compatible avec les applications clientes Subsonic.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">music.maison.lan</span>
+                    </div>
+
+                    <div class="pro-card p-5 border-blue-500/30">
+                        <div class="text-xs font-mono text-emerald-400 mb-1">Outil de Veille</div>
+                        <h3 class="font-semibold text-white text-sm mb-2">FreshRSS</h3>
+                        <p class="text-xs text-slate-300 leading-relaxed mb-2">
+                            Agrégateur de flux RSS auto-hébergé, servant directement d'outil quotidien pour ma veille technologique BTS SIO.
+                        </p>
+                        <span class="text-[11px] font-mono text-slate-400">rss.maison.lan</span>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Liens bas de page -->
+            <div class="flex items-center justify-between text-xs pt-6 border-t border-slate-800 text-slate-400">
+                <a href="competences.html" class="hover:text-white">← Compétences Techniques</a>
+                <a href="veille.html" class="text-blue-400 hover:underline">Consulter la Veille Technologique →</a>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 py-8 bg-[#090d15] text-xs text-slate-500">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div>
+                <span class="font-medium text-slate-300">Jordann Vicente Guia</span> — BTS SIO SISR (Lycée Benjamin Franklin, Orléans)
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="index.html" class="text-slate-400 hover:text-white">Accueil</a>
+                <a href="parcours.html" class="text-slate-400 hover:text-white">Parcours</a>
+                <a href="competences.html" class="text-slate-400 hover:text-white">Compétences</a>
+                <a href="homelab.html" class="text-white font-medium">Homelab</a>
+                <a href="veille.html" class="text-slate-400 hover:text-white">Veille</a>
+                <a href="contact.html" class="text-slate-400 hover:text-white">Contact</a>
+                <span>•</span>
+                <a href="cv.pdf" download="CV_Jordann_VICENTE_GUIA_BTS_SIO_SISR.pdf" class="text-blue-400 hover:underline">CV.pdf</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Main JavaScript -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>
